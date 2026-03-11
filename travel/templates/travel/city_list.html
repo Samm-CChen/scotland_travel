@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scottish Cities</title>
+</head>
+<body>
+
+    <h1>Scottish Cities</h1>
+
+    <ul>
+        {% for city in cities %}
+            <li>
+                <button onclick="loadAttractions({{ city.id }})">
+                    {{ city.name }}
+                </button>
+            </li>
+        {% empty %}
+            <li>No cities available.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Attractions</h2>
+
+    <div id="attractions">
+        <p>Click a city to see its attractions.</p>
+    </div>
+
+    <script>
+        function loadAttractions(cityId) {
+            fetch("/api/cities/" + cityId + "/")
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch attractions");
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    let container = document.getElementById("attractions");
+                    container.innerHTML = "";
+
+                    if (data.attractions.length === 0) {
+                        container.innerHTML = "<p>No attractions found for this city.</p>";
+                        return;
+                    }
+
+                    data.attractions.forEach(a => {
+                        container.innerHTML += `
+                            <div style="margin-bottom: 20px;">
+                                <h3>${a.name}</h3>
+                                <p>Rating: ${a.rating}</p>
+                                <a href="${a.url}" target="_blank">Official site</a>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    document.getElementById("attractions").innerHTML =
+                        "<p>Something went wrong while loading attractions.</p>";
+                    console.error(error);
+                });
+        }
+    </script>
+
+</body>
+</html>
