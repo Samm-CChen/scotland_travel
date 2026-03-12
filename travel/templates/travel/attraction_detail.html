@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attractions</title>
+</head>
+<body>
+    {% for attraction in attractions %}
+    <h1>
+        {{attraction.name}}
+    </h1>
+
+    {% if attraction.image_url %}
+    <img src="{{ attraction.image_url }}" width="400">
+    {% endif %}
+
+    <p>Average Rating: {{ attractions.average_rating}}</p>
+    {% if attraction.official_url %}
+    <a href="{{ attraction.official_url }}" target="_blank" rel="noopener noreferrer">
+        <button>Enter Attraction</button>
+    </a>
+    {% else %}
+    <p>Official website not available.</p>
+    {% endif %}
+</body>

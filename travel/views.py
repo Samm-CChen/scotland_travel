@@ -16,7 +16,7 @@ def city_attractions(request, city_id):
     attractions = (
         Attraction.objects
         .filter(city=city)
-        .annotate(avg_rating=Avg('ratings_rating'))
+        .annotate(avg_rating=Avg('ratings__rating'))
         .order_by('-avg_rating')
         )
     
@@ -24,11 +24,17 @@ def city_attractions(request, city_id):
 
     for a in attractions:
         data.append({
+            "id":a.id,
             "name": a.name,
             "image": a.image_url,
             "url": a.official_url,
-            "rating": a.average_rating if a.average_rating else 0
+            "rating": a.avg_rating if a.avg_rating else 0,
         
         })
 
     return JsonResponse({"attractions": data})
+
+
+def attraction_detail(request, attraction_id):
+    attraction = get_object_or_404(Attraction, id=attraction_id)
+    return render(request,'travel/attraction_detail.html', {'attraction': attraction})

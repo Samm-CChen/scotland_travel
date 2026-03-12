@@ -18,7 +18,7 @@ class Attraction(models.Model):
     official_url = models.URLField(blank=True)
 
     def average_rating(self):
-        avg = self.ratings.aggregate(Avg('rating'))['ratring_avg']
+        avg = self.ratings.aggregate(Avg('rating'))['rating__avg']
         return avg if avg else 0
     
     def __str__(self):
