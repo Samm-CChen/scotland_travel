@@ -13,12 +13,22 @@ def city_list(request):
 def city_attractions(request, city_id):
     city = get_object_or_404(City, id=city_id)
 
+    min_rating = request.GET.get("min_rating")
+
     attractions = (
         Attraction.objects
         .filter(city=city)
         .annotate(avg_rating=Avg('ratings__rating'))
         .order_by('-avg_rating')
         )
+    
+
+    if min_rating:
+        try:
+            min_rating =float(min_rating)
+            attraction = attraction.filter(avg_rating__gte=min_rating)
+        except ValueError:
+            pass
     
     data = []
 
