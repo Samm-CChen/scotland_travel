@@ -1,7 +1,16 @@
 <h1>Login</h1>
 
-<form method="post">
+{% if form.errors %}
+  <p role="alert">用户名或密码不正确，请重试。</p>
+{% endif %}
+
+<form method="post" novalidate>
   {% csrf_token %}
   {{ form.as_p }}
+  <input type="hidden" name="next" value="{{ next }}">
   <button type="submit">Login</button>
 </form>
+
+<p>
+  没有账号？<a href="{% url 'register' %}{% if next %}?next={{ next|urlencode }}{% endif %}">去注册</a>
+</p>
