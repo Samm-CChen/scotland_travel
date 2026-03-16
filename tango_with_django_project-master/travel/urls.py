@@ -1,16 +1,16 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 app_name = "travel"
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("cities/", views.cities, name="cities"),
     path("protected/", views.protected, name="protected"),
-     # 景点详情
+    # Attraction details
     path("attractions/<int:attraction_id>/", views.attraction_detail, name="attraction_detail"),
-    # 收藏切换
+    # Bookmark switch
     path("attractions/<int:attraction_id>/bookmark/", views.toggle_bookmark, name="toggle_bookmark"),
-    # 收藏列表
+    # Bookmark list
     path("bookmarks/", views.bookmarks, name="bookmarks"),
 ]

@@ -7,18 +7,18 @@
 <body>
   <nav>
     <a href="{% url 'travel:home' %}">Home</a>
-    <a href="{% url 'travel:cities' %}">City</a>
+    <a href="{% url 'travel:cities' %}">Cities</a>
 
     {% if user.is_authenticated %}
-      <span>你好，{{ user.username }}</span>
-      <a href="{% url 'travel:bookmarks' %}">Bookmark</a>
+      <span>Hello, {{ user.username }}</span>
+      <a href="{% url 'travel:bookmarks' %}">My Bookmarks</a>
       <form method="post" action="{% url 'logout' %}" style="display:inline;">
         {% csrf_token %}
-        <button type="submit">logout</button>
+        <button type="submit">Logout</button>
       </form>
     {% else %}
-      <a href="{% url 'login' %}">login</a>
-      <a href="{% url 'register' %}">register</a>
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
     {% endif %}
   </nav>
 

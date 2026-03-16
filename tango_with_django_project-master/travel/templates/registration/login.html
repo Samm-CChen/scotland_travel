@@ -1,7 +1,7 @@
 <h1>Login</h1>
 
 {% if form.errors %}
-  <p role="alert">用户名或密码不正确，请重试。</p>
+  <p role="alert">The username or password is incorrect, please try again</p>
 {% endif %}
 
 <form method="post" novalidate>
@@ -12,5 +12,5 @@
 </form>
 
 <p>
-  没有账号？<a href="{% url 'register' %}{% if next %}?next={{ next|urlencode }}{% endif %}">去注册</a>
+  Don't have an account? <a href="{% url 'register' %}{% if next %}?next={{ next|urlencode }}{% endif %}">Sign up</a>
 </p>

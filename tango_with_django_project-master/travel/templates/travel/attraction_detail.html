@@ -1,0 +1,14 @@
+<h1>{{ attraction.name }}</h1>
+
+{% if attraction.official_url %}
+  <p><a href="{{ attraction.official_url }}" target="_blank" rel="noopener">Enter Attraction</a></p>
+{% endif %}
+
+<form method="post" action="{% url 'travel:toggle_bookmark' attraction.id %}">
+  {% csrf_token %}
+  <button type="submit">
+    {% if is_bookmarked %}★ Already bookmarked{% else %}☆ Bookmark{% endif %}
+  </button>
+</form>
+
+<p><a href="{% url 'travel:bookmarks' %}">View My Bookmarks</a></p>

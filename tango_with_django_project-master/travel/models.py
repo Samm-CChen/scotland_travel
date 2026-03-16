@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# 城市
 class City(models.Model):
     name = models.CharField(max_length=100)
 
@@ -10,7 +9,6 @@ class City(models.Model):
         return self.name
 
 
-# 景点
 class Attraction(models.Model):
     city = models.ForeignKey(
         City,
@@ -25,7 +23,6 @@ class Attraction(models.Model):
         return self.name
 
 
-# ⭐ S1 Bookmark 
 class Bookmark(models.Model):
     user = models.ForeignKey(
         User,

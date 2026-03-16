@@ -1,0 +1,14 @@
+<h1>My Bookmarks</h1>
+
+<ul>
+  {% for b in bookmarks %}
+    <li>
+      <a href="{% url 'travel:attraction_detail' b.attraction.id %}">
+        {{ b.attraction.name }}
+      </a>
+      （{{ b.attraction.city.name }}）
+    </li>
+  {% empty %}
+    <li>You haven't bookmarked any attractions yet.</li>
+  {% endfor %}
+</ul>
