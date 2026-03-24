@@ -1,0 +1,16 @@
+<h1>Login</h1>
+
+{% if form.errors %}
+  <p role="alert">The username or password is incorrect, please try again</p>
+{% endif %}
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="hidden" name="next" value="{{ next }}">
+  <button type="submit">Login</button>
+</form>
+
+<p>
+  Don't have an account? <a href="{% url 'register' %}{% if next %}?next={{ next|urlencode }}{% endif %}">Sign up</a>
+</p>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Scotland Travel</title>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'travel:home' %}">Home</a>
+    <a href="{% url 'travel:cities' %}">Cities</a>
+
+    {% if user.is_authenticated %}
+      <span>Hello, {{ user.username }}</span>
+      <a href="{% url 'travel:bookmarks' %}">My Bookmarks</a>
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </nav>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
