@@ -1,0 +1,9 @@
+{% if readonly %}
+    {% for i in "12345" %}
+        <span class="star {% if i|add:0 <= rating|floatformat:0 %}active{% endif %}">★</span>
+    {% endfor %}
+{% else %}
+    {% for i in "12345" %}
+        <span class="star" data-rating="{{ i }}">★</span>
+    {% endfor %}
+{% endif %}
